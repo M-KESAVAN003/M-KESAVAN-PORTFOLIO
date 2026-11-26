@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kesavan M | Portfolio</title>
+  <meta name="description" content="Portfolio of Kesavan M, a Computer and Communication Engineering student and aspiring software developer.">
+  <style>
+    :root {
+      --bg: #111111;
+      --accent: #ff6a00;
+      --accent-dark: #e05d00;
+      --text: #ffffff;
+      --muted: #b5b5b5;
+      --border: #333333;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      padding: 24px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    .site {
+      max-width: 1200px;
+      margin: 0 auto;
+      border: 1px solid var(--border);
+    }
+
+    /* Navigation */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 48px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
+    }
+
+    .logo { font-size: 1.25rem; font-weight: 700; letter-spacing: 1px; }
+
+    .nav-links { display: flex; align-items: center; gap: 30px; }
+    .nav-links a:not(.btn) { color: var(--muted); font-size: 0.95rem; transition: color .2s; }
+    .nav-links a:not(.btn):hover,
+    .nav-links a.active { color: var(--accent); }
+
+    .menu-btn { display: none; background: none; border: 0; cursor: pointer; padding: 6px; }
+    .menu-btn span { display: block; width: 24px; height: 2px; background: var(--text); margin: 5px 0; }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #111;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 12px 28px;
+      border: 2px solid var(--accent);
+      border-radius: 4px;
+      transition: background .2s, color .2s;
+      cursor: pointer;
+    }
+    .btn:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+    .btn-outline { background: transparent; color: var(--accent); }
+    .btn-outline:hover { background: var(--accent); color: #111; }
+    .btn-small { padding: 8px 20px; font-size: 0.95rem; }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 40px;
+      padding: 64px 48px;
+      min-height: 520px;
+    }
+
+    .hello { font-size: 1.6rem; color: var(--muted); }
+    .hero h1 { font-size: clamp(3rem, 7vw, 5.2rem); line-height: 1.05; letter-spacing: 1px; margin: 4px 0 18px; }
+    .hero h1 span { color: var(--accent); }
+    .role { font-size: 1.2rem; color: var(--muted); }
+    .role-strong { font-size: 1.35rem; font-weight: 700; margin-bottom: 20px; }
+    .intro { color: var(--muted); max-width: 520px; margin-bottom: 32px; }
+
+    .buttons { display: flex; flex-wrap: wrap; gap: 16px; }
+
+    .hero-photo { display: flex; justify-content: center; }
+    .photo-wrap { position: relative; width: 100%; max-width: 300px; margin-right: 18px; }
+    .photo-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 18px -18px -18px 18px;
+      background: #1c1c1c;
+      border: 1px solid #2c2c2c;
+      border-radius: 20px;
+    }
+    .photo-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      background: #1a1a1a;
+      border: 1px solid rgba(255, 106, 0, 0.55);
+      border-radius: 20px;
+      box-shadow: 0 14px 36px rgba(255, 106, 0, 0.22);
+      overflow: hidden;
+    }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .monogram { display: none; }
+    .photo-frame.no-photo img { display: none; }
+    .photo-frame.no-photo .monogram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      font-size: 6rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 4px;
+    }
+
+    /* Sections */
+    .section { padding: 70px 48px; border-top: 1px solid var(--border); scroll-margin-top: 76px; }
+    .section-title { font-size: 2rem; margin-bottom: 32px; }
+    .section-title span { color: var(--accent); }
+    h3 { font-size: 1.15rem; }
+
+    .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; }
+    .about-text p { color: var(--muted); margin-bottom: 16px; }
+    .facts div { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .facts dt { width: 90px; color: var(--accent); flex-shrink: 0; }
+    .facts dd { color: var(--text); }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+    .skills-grid h3 { color: var(--accent); margin-bottom: 14px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tags li { border: 1px solid var(--border); padding: 6px 16px; border-radius: 4px; color: var(--text); transition: border-color .2s, color .2s; }
+    .tags li:hover { border-color: var(--accent); color: var(--accent); }
+
+    .project { padding: 28px 0; border-bottom: 1px solid var(--border); }
+    .project:first-of-type { padding-top: 0; }
+    .project-head, .entry-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px 20px; margin-bottom: 12px; }
+    .project-head h3, .entry-head h3 { font-size: 1.3rem; }
+    .date { color: var(--accent); font-size: 0.95rem; }
+
+    .bullets { list-style: disc; padding-left: 20px; color: var(--muted); }
+    .bullets li { margin-bottom: 8px; padding-left: 4px; }
+    .bullets li::marker { color: var(--accent); }
+
+    .note { margin-top: 24px; color: var(--muted); }
+    .note a, .contact-list a { color: var(--accent); }
+    .note a:hover, .contact-list a:hover { text-decoration: underline; }
+
+    .timeline { border-left: 2px solid var(--border); margin-left: 6px; }
+    .entry { position: relative; padding: 0 0 32px 30px; }
+    .entry:last-child { padding-bottom: 0; }
+    .entry::before { content: ""; position: absolute; left: -7px; top: 8px; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; }
+
+    .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .more-grid h3 { color: var(--accent); margin-bottom: 14px; }
+    .plain li { color: var(--muted); padding: 4px 0; }
+
+    .contact-intro { color: var(--muted); margin-bottom: 24px; }
+    .contact-list { margin-bottom: 32px; }
+    .contact-list li { display: flex; gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .contact-list span { width: 90px; color: var(--muted); }
+
+    .footer { display: flex; justify-content: space-between; padding: 24px 48px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.9rem; }
+    .footer a:hover { color: var(--accent); }
+
+    /* Tablet */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding: 56px 32px; min-height: 0; }
+      .photo-wrap { max-width: 240px; }
+      .about-grid, .more-grid { grid-template-columns: 1fr; gap: 28px; }
+      .nav, .section, .footer { padding-left: 32px; padding-right: 32px; }
+      .nav-links { gap: 18px; }
+    }
+
+    /* Mobile */
+    @media (max-width: 720px) {
+      body { padding: 0; }
+      .site { border-left: 0; border-right: 0; }
+      .nav { padding: 16px 20px; }
+      .menu-btn { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        padding: 8px 20px 20px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a:not(.btn) { padding: 10px 0; width: 100%; }
+      .nav-cta { margin-top: 10px; }
+      .hero { padding: 40px 20px; }
+      .photo-wrap { max-width: 200px; }
+      .section { padding: 48px 20px; scroll-margin-top: 64px; }
+      .footer { padding: 20px; }
+      .skills-grid { grid-template-columns: 1fr; gap: 28px; }
+      .buttons .btn { flex: 1 1 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="site">
+
+    <header class="nav" id="top">
+      <a href="#home" class="logo">KESAVAN M</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#about">About Me</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#internships">Internships</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="btn btn-small nav-cta">Hire Me</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-text">
+          <p class="hello">Hi, I'm</p>
+          <h1>KESAVAN <span>M</span></h1>
+          <p class="role">Computer and Communication Engineering Student</p>
+          <p class="role-strong">Aspiring Software Developer</p>
+          <p class="intro">I am a Computer and Communication Engineering student interested in programming, software development, and emerging AI technologies. I enjoy developing practical projects, learning new technologies, and improving my problem-solving skills.</p>
+          <div class="buttons">
+            <a href="#contact" class="btn">Hire Me</a>
+            <a href="assets/Kesavan_M_Resume.pdf" class="btn btn-outline" download="Kesavan_M_Resume.pdf">Download Resume</a>
+          </div>
+        </div>
+        <div class="hero-photo">
+          <div class="photo-wrap"><div class="photo-frame" id="photoFrame">
+            <img src="assets/profile.jpg" alt="Photo of Kesavan M" id="profileImg" width="720" height="900">
+            <span class="monogram" aria-hidden="true">KM</span>
+          </div></div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <h2 class="section-title">About <span>Me</span></h2>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>I'm Kesavan, a third-year student at VSB Engineering College, Karur. I enjoy turning ideas into working software, and most of what I know comes from building small projects and practising regularly.</p>
+            <p>So far I have worked with Python and Java, and built CollegeMate, a college predictor for TNEA counselling, and SkillProof, a platform for verifying developer skills. I'm now looking for opportunities where I can keep learning and contribute as a fresher software developer.</p>
+          </div>
+          <dl class="facts">
+            <div><dt>Name</dt><dd>Kesavan M</dd></div>
+            <div><dt>Degree</dt><dd>B.E. Computer and Communication Engineering</dd></div>
+            <div><dt>College</dt><dd>VSB Engineering College, Karur</dd></div>
+            <div><dt>Education</dt><dd>Currently pursuing 3rd Year</dd></div>
+            <div><dt>CGPA</dt><dd>8.2 / 10</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="section" id="skills">
+        <h2 class="section-title">Technical <span>Skills</span></h2>
+        <div class="skills-grid">
+          <div>
+            <h3>Programming</h3>
+            <ul class="tags">
+              <li>Python</li>
+              <li>Java</li>
+              <li>Data Structures and Algorithms (DSA)</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Technology</h3>
+            <ul class="tags">
+              <li>Git</li>
+              <li>GitHub</li>
+              <li>Canva</li>
+              <li>AI Tools</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <h2 class="section-title">My <span>Projects</span></h2>
+
+        <article class="project">
+          <div class="project-head">
+            <h3>CollegeMate – AI TNEA College Predictor</h3>
+            <span class="date">May 2026 – August 2026</span>
+          </div>
+          <ul class="bullets">
+            <li>Developed an AI-powered web platform that helps students identify suitable engineering colleges using TNEA admission data.</li>
+            <li>Implemented college prediction and cutoff analysis features that generate personalized college recommendations to support admission decisions.</li>
+            <li>Integrated an AI chatbot with the application's backend to provide interactive guidance within the platform.</li>
+          </ul>
+        </article>
+
+        <article class="project">
+          <div class="project-head">
+            <h3>SkillProof – Developer Skill Verification</h3>
+            <span class="date">September 2026 – Present</span>
+          </div>
+          <ul class="bullets">
+            <li>Developing a platform that verifies developer skills using evidence from GitHub repositories, technical assessments, and coding challenges.</li>
+            <li>Implemented repository analysis, authorship verification, and static code analysis to assess the code a developer has actually written.</li>
+            <li>Designed an evidence-based skill verification approach that supports skill claims with verifiable work instead of self-reported ability.</li>
+          </ul>
+        </article>
+
+        <p class="note">More project code is available on my <a href="https://github.com/M-KESAVAN003" target="_blank" rel="noopener">GitHub profile</a>.</p>
+      </section>
+
+      <section class="section" id="internships">
+        <h2 class="section-title">My <span>Internships</span></h2>
+        <div class="timeline">
+
+          <div class="entry">
+            <div class="entry-head">
+              <h3>Pegasystems – National Internship Program (NIP) 2026</h3>
+              <span class="date">August 2026 – September 2026 | Virtual</span>
+            </div>
+            <ul class="bullets">
+              <li>Gained exposure to Enterprise AI, Generative AI, and Agentic Engineering concepts using the Pega platform.</li>
+              <li>Explored AI-powered workflow design with Pega Blueprint and applied automation concepts to enterprise scenarios.</li>
+            </ul>
+          </div>
+
+          <div class="entry">
+            <div class="entry-head">
+              <h3>CodeAlpha – Python Programming Intern</h3>
+              <span class="date">June 2026 – July 2026 | Virtual</span>
+            </div>
+            <ul class="bullets">
+              <li>Developed Python applications for practical programming tasks, applying core programming concepts and problem-solving.</li>
+              <li>Strengthened coding and debugging skills by implementing solutions for assigned internship tasks.</li>
+            </ul>
+          </div>
+
+          <div class="entry">
+            <div class="entry-head">
+              <h3>InternNova – Java Development Intern</h3>
+              <span class="date">September 2026 – October 2026 | Virtual</span>
+            </div>
+            <ul class="bullets">
+              <li>Wrote Java programs applying Object-Oriented Programming (OOP) principles to practical development tasks.</li>
+              <li>Practised coding, debugging, and application development in a Java-focused virtual internship.</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="section" id="more">
+        <div class="more-grid">
+          <div>
+            <h3>Coursework</h3>
+            <ul class="plain">
+              <li>Object-Oriented Programming</li>
+              <li>Computer Networks</li>
+              <li>Problem Solving</li>
+              <li>Web Technologies</li>
+              <li>Database Management Systems (DBMS)</li>
+              <li>Machine Learning</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Certifications</h3>
+            <ul class="plain">
+              <li>NPTEL – Java Programming</li>
+              <li>Generative AI Fluency – Nasscom</li>
+              <li>GUVI – Python Course</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Languages</h3>
+            <ul class="plain">
+              <li>Tamil – Native</li>
+              <li>English – Professional</li>
+              <li>Japanese – Beginner (Preparing for JLPT N5)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <h2 class="section-title">Get In <span>Touch</span></h2>
+        <p class="contact-intro">I'm open to fresher software developer and IT opportunities. Feel free to reach out.</p>
+        <ul class="contact-list">
+          <li><span>Email</span><a href="mailto:manikesavan003@gmail.com">manikesavan003@gmail.com</a></li>
+          <li><span>Phone</span><a href="tel:+916380149086">+91 6380149086</a></li>
+          <li><span>GitHub</span><a href="https://github.com/M-KESAVAN003" target="_blank" rel="noopener">github.com/M-KESAVAN003</a></li>
+          <li><span>LinkedIn</span><a href="https://linkedin.com/in/kesavan-m-b48475415" target="_blank" rel="noopener">linkedin.com/in/kesavan-m-b48475415</a></li>
+        </ul>
+        <div class="buttons">
+          <a href="mailto:manikesavan003@gmail.com" class="btn">Email Me</a>
+          <a href="assets/Kesavan_M_Resume.pdf" class="btn btn-outline" download="Kesavan_M_Resume.pdf">Download Resume</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; <span id="year">2026</span> Kesavan M</p>
+      <a href="#top">Back to top</a>
+    </footer>
+
+  </div>
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open);
+    });
+
+    // Close the menu after choosing a link
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Show a monogram if the profile photo is missing
+    const frame = document.getElementById('photoFrame');
+    const img = document.getElementById('profileImg');
+    img.addEventListener('error', () => frame.classList.add('no-photo'));
+    if (img.complete && img.naturalWidth === 0) frame.classList.add('no-photo');
+
+    // Highlight the nav link of the section in view
+    const links = document.querySelectorAll('.nav-links a:not(.btn)');
+    const sections = [...links].map(a => document.querySelector(a.getAttribute('href')));
+
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY + 120;
+      let current = sections[0];
+      sections.forEach(s => { if (s && s.offsetTop <= y) current = s; });
+      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current.id));
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
